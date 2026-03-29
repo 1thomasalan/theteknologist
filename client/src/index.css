@@ -1,0 +1,358 @@
+/*
+ * THE TEKNOLOGIST — Design System
+ * Philosophy: Swiss International Typographic Style / Editorial Intelligence
+ * 
+ * Core: IBM Plex type family, warm parchment palette, BRAIN vertical accent bars
+ * Layout: Single column 680px, left-aligned, content-first
+ * Decoration: Only the 4px vertical accent bar — color per BRAIN vertical
+ */
+
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* BRAIN Vertical Colors */
+  --color-biotech: #2ECC71;
+  --color-robotics: #3498DB;
+  --color-ai: #9B59B6;
+  --color-infrastructure: #E67E22;
+  --color-news: #E74C3C;
+  --color-tekfinds: #1ABC9C;
+}
+
+:root {
+  --radius: 0.125rem;
+
+  /* Warm parchment light theme */
+  --background: oklch(0.978 0.006 80);        /* #F7F5F1 warm parchment */
+  --foreground: oklch(0.165 0.008 65);        /* #1A1A1A near-black ink */
+  --card: oklch(0.985 0.004 80);              /* slightly lighter than bg */
+  --card-foreground: oklch(0.165 0.008 65);
+  --popover: oklch(0.985 0.004 80);
+  --popover-foreground: oklch(0.165 0.008 65);
+  --primary: oklch(0.165 0.008 65);           /* ink black as primary */
+  --primary-foreground: oklch(0.978 0.006 80);
+  --secondary: oklch(0.945 0.008 80);         /* slightly darker parchment */
+  --secondary-foreground: oklch(0.35 0.008 65);
+  --muted: oklch(0.945 0.008 80);
+  --muted-foreground: oklch(0.52 0.012 65);   /* warm mid-gray */
+  --accent: oklch(0.945 0.008 80);
+  --accent-foreground: oklch(0.165 0.008 65);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.88 0.008 80);             /* warm light border */
+  --input: oklch(0.88 0.008 80);
+  --ring: oklch(0.52 0.012 65);
+}
+
+.dark {
+  --background: oklch(0.148 0.006 65);        /* #1A1714 deep warm charcoal */
+  --foreground: oklch(0.895 0.008 80);        /* warm off-white */
+  --card: oklch(0.185 0.006 65);
+  --card-foreground: oklch(0.895 0.008 80);
+  --popover: oklch(0.185 0.006 65);
+  --popover-foreground: oklch(0.895 0.008 80);
+  --primary: oklch(0.895 0.008 80);
+  --primary-foreground: oklch(0.148 0.006 65);
+  --secondary: oklch(0.22 0.006 65);
+  --secondary-foreground: oklch(0.72 0.008 80);
+  --muted: oklch(0.22 0.006 65);
+  --muted-foreground: oklch(0.58 0.010 80);
+  --accent: oklch(0.22 0.006 65);
+  --accent-foreground: oklch(0.895 0.008 80);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.58 0.010 80);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'IBM Plex Serif', Georgia, serif;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  a[href] {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    max-width: 720px;
+  }
+
+  @media (min-width: 768px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  /* BRAIN Vertical Accent Bar System */
+  .vertical-bar {
+    width: 4px;
+    flex-shrink: 0;
+    border-radius: 0;
+    transition: width 150ms ease;
+  }
+  .vertical-bar:hover,
+  .post-card:hover .vertical-bar {
+    width: 6px;
+  }
+
+  .bar-biotech { background-color: var(--color-biotech); }
+  .bar-robotics { background-color: var(--color-robotics); }
+  .bar-ai { background-color: var(--color-ai); }
+  .bar-infrastructure { background-color: var(--color-infrastructure); }
+  .bar-news { background-color: var(--color-news); }
+  .bar-tekfinds { background-color: var(--color-tekfinds); }
+
+  /* Vertical color text classes */
+  .text-biotech { color: var(--color-biotech); }
+  .text-robotics { color: var(--color-robotics); }
+  .text-ai { color: var(--color-ai); }
+  .text-infrastructure { color: var(--color-infrastructure); }
+  .text-news { color: var(--color-news); }
+  .text-tekfinds { color: var(--color-tekfinds); }
+
+  /* Monospace meta text */
+  .meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  /* Wordmark */
+  .wordmark {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* Post card */
+  .post-card {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: background-color 150ms ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+  }
+  .post-card:hover {
+    background-color: oklch(from var(--secondary) l c h / 0.5);
+    margin: 0 -1.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  .post-card:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  /* Filter tab */
+  .filter-tab {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 150ms ease, color 150ms ease;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    color: var(--muted-foreground);
+    cursor: pointer;
+  }
+  .filter-tab:hover {
+    color: var(--foreground);
+  }
+  .filter-tab.active {
+    color: var(--foreground);
+    border-bottom-color: var(--foreground);
+  }
+  .filter-tab.active-biotech { border-bottom-color: var(--color-biotech); color: var(--color-biotech); }
+  .filter-tab.active-robotics { border-bottom-color: var(--color-robotics); color: var(--color-robotics); }
+  .filter-tab.active-ai { border-bottom-color: var(--color-ai); color: var(--color-ai); }
+  .filter-tab.active-infrastructure { border-bottom-color: var(--color-infrastructure); color: var(--color-infrastructure); }
+  .filter-tab.active-news { border-bottom-color: var(--color-news); color: var(--color-news); }
+  .filter-tab.active-tekfinds { border-bottom-color: var(--color-tekfinds); color: var(--color-tekfinds); }
+}
+
+/* Page load animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-entry {
+  animation: fadeInUp 200ms ease forwards;
+  opacity: 0;
+}
+
+/* Brief post markdown prose styles */
+.prose-brief {
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--foreground);
+  max-width: 100%;
+}
+
+.prose-brief h2 {
+  font-family: 'IBM Plex Serif', Georgia, serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--foreground);
+}
+
+.prose-brief h3 {
+  font-family: 'IBM Plex Serif', Georgia, serif;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--foreground);
+}
+
+.prose-brief strong {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.prose-brief p {
+  margin-bottom: 1rem;
+  color: var(--foreground);
+}
+
+.prose-brief em {
+  font-style: italic;
+  color: var(--muted-foreground);
+}
+
+.prose-brief a {
+  color: var(--foreground);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--muted-foreground);
+  transition: text-decoration-color 0.15s ease;
+}
+
+.prose-brief a:hover {
+  text-decoration-color: var(--foreground);
+}
+
+/* Linked story headlines — bold links inside strong tags */
+.prose-brief strong a {
+  font-weight: 600;
+  text-decoration-thickness: 1.5px;
+}
+
+/* Source links — italic context */
+.prose-brief em a {
+  font-style: italic;
+  text-decoration-thickness: 1px;
+}
+
+.prose-brief hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
+}
+
+.prose-brief ol, .prose-brief ul {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.prose-brief li {
+  margin-bottom: 0.25rem;
+}
+
+.prose-brief blockquote {
+  border-left: 3px solid var(--border);
+  padding-left: 1rem;
+  color: var(--muted-foreground);
+  font-style: italic;
+  margin: 1.5rem 0;
+}
+
+/* Scrollbar hide utility */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Font utilities */
+.font-serif {
+  font-family: 'IBM Plex Serif', Georgia, serif;
+}
+.font-mono {
+  font-family: 'IBM Plex Mono', monospace;
+}
